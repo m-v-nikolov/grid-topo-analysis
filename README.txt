@@ -1,5 +1,4 @@
-This is a collection of loosely coupled scripts facilitating the generation of grid topologies for EMOD DTK simulations, 
-based on the enumeration of geographical coordinates (e.g. specifying the positions of households, hospitals, etc.).
+This is a collection of loosely coupled scripts facilitating the generation of grid topologies for EMOD DTK simulations, based on the enumeration of geographical coordinates (e.g. specifying the positions of households, hospitals, etc.).
 
 
 The scripts are organized in example workflows provided in the documentation of each directory.

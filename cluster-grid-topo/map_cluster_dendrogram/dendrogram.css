@@ -1,0 +1,32 @@
+/*
+
+g.node.inner
+{
+	r:3;
+}
+
+g.node.leaf
+{
+	r:3;
+}
+
+g.node.root
+{
+	r:4.5;
+	fill:green;
+	stroke: "#369";
+	stroke-width: "2px";
+}
+
+*/
+
+
+circle.unselected-map-node
+{
+	fill:black;	
+}
+
+circle.selected-map-node
+{
+	fill:red;	
+}

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang='en' xml:lang='en' xmlns='http://www.w3.org/1999/xhtml'>
+  <head>
+    <meta content='text/html;charset=UTF-8' http-equiv='content-type'>
+    <title>Haiti dendrogram</title>
+    <link type="text/css" rel="stylesheet" href="dendrogram.css"></link>
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css"/>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="http://cdn.leafletjs.com/leaflet-0.7/leaflet.js"></script>
+    <script src="http://d3js.org/d3.v3.min.js" type="text/javascript"></script>
+    <script src="newick.js" type="text/javascript"></script>
+    <script src="d3.dendrogram.js" type="text/javascript"></script>
+    <script src="map.js" type="text/javascript"></script>
+    
+    <script>
+      function load(file) {
+
+         var rawFile = new XMLHttpRequest();
+         rawFile.open("GET", file, false); 
+         rawFile.onreadystatechange = function ()
+         {
+          if(rawFile.readyState === 4)
+          {
+            if(rawFile.status === 200 || rawFile.status == 0)
+            {
+                var allText = rawFile.responseText;
+                var newick = Newick.parse(allText);
+
+                var newickNodes = []
+                function buildNewickNodes(node, callback) {
+                   newickNodes.push(node)
+                    if (node.branchset) {
+                    for (var i=0; i < node.branchset.length; i++) {
+                      buildNewickNodes(node.branchset[i])
+                    }
+                   }
+                }
+               buildNewickNodes(newick)
+        
+  
+             d3.phylogram.build('#phylogram', newick, {
+               width: 600,
+               height: 800,
+	       skipLabels:false
+             });
+	     
+          }
+        }
+       }
+        rawFile.send(null);
+
+
+
+      
+      
+      
+   // load base map; see load_map in spatial.js for more details on input specs 
+  	load_map(
+  	 		   'grid-nodes-map', // map id 
+  	 		   "cell_cluster_map.json", 
+  	 		   ".resourcecontainer.maps", //target container,
+  	 		   
+  	 		   // map layout parameters; see load_map for more details on which parameters are configurable; more than what's shown here are configurable
+  	 		   {
+  	 		       width: 900,
+  	 		       height: 720,
+  	 			   
+  	 			   node_opacity:0.5, // controls node opacity; if specified, it overrides the node_attr_2_opacity parameter values (the latter allows the binding of channel's values to node opacity)
+  
+  	 			   /* base map layer; here we use google earth maps; but more layers are freely available
+  	 			    * (e.g. https://leaflet-extras.github.io/leaflet-providers/preview/)
+  	 			    * only need to copy and paste the L.tileLayer object and assigne it to base_tile_layer as below
+  	 			   */
+  	 			   
+  	 			  /* 
+  	 			  base_tile_layer : L.tileLayer('http://{s}.tile.thunderforest.com/spinal-map/{z}/{x}/{y}.png', {
+  	 					attribution: '&copy; <a href="http://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+  	 				})
+  	 				
+  	 			  */
+  	 			   
+  				   	 /*
+  	 			   base_tile_layer : L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{
+  					    maxZoom: 20,
+  					    subdomains:['mt0','mt1','mt2','mt3']
+  				  })
+  	 			   */
+  	 			   
+  	 			   
+  	 			  
+                     // another sample base tile layer that could be used (see https://leaflet-extras.github.io/leaflet-providers/preview/ for more)
+  				    base_tile_layer : L.tileLayer('http://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png', {
+  						attribution: '&copy; <a href="http://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+  				   	  })
+  				  
+  	 			   
+  	 			  
+  				   /*
+  				   base_tile_layer : L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}.{ext}', {
+  						attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+  						subdomains: 'abcd',
+  						minZoom: 0,
+  						maxZoom: 20,
+  						ext: 'png'
+  				   	  })
+                     */
+
+  	 			   /* we can overlay additional layers from WMS servers; one is running at IDM hoster by Dejan and currently holds 
+  	 			    * Lake Kariba HFCAs, households, CHW locations, various Zambia admin levels as layers; here we pull the HFCA layer to show HFCA boundaries; 
+  	 			    * see zambia_migration_dashboard.html, for example  
+  	 			    
+  	 			  additional_layers:[ L.tileLayer.wms('http://idmdvsmt01.internal.idm.ctr:8080/cgi-bin/mapserv.exe?map=c:/ms4w/apps/idm/malaria/zambia.map&', {
+  						//layers: 'Households_1_6_w_clusts,HFcatchments,Admin2,Admin1,Countries',
+  		 				layers: 'HFcatchments',
+  						format: 'image/png', 
+  						transparent: false, 
+  						crs: L.CRS.EPSG4326
+  					
+  		 		  })]
+  		 		  */
+  	 		   }
+  	);
+    }
+    </script>
+    <style type="text/css" media="screen">
+      body { font-family: "Helvetica Neue", Helvetica, sans-serif; }
+      td { vertical-align: top; }
+    </style>
+  </head>
+  <body onload="load('haiti_grid_nw.txt')">
+    <table>
+      <tr>
+        <td>
+          <div id='phylogram'></div>
+        </td>
+        <td>
+          <div class="resourcecontainer maps">
+          </div>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
+

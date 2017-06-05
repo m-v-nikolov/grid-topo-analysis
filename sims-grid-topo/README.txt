@@ -212,4 +212,44 @@ dtk run haiti_gridded_households_spatial_example_health_seeking.py --hpc
 
 --- name the file structures_households.csv and copy it in grid-topo-analysis/build-grid-topo/
 
---- run example workflow (1)
+--- run example workflow (1) without the OSM households download step
+
+=====================================================================================================================
+
+- Example workflow (4) to run a spatial gridded topology malaria sim from a csv file containing household locations; assuming no habitat parameter input required
+
+--- from the household enumeration csv file, extract a csv with two required columns lat,lon (you could use your original data csv if it has columns lat,lon for each household; if the file is big it might be better to extract only necessary columns)
+--- name the file structures_households.csv and copy it in grid-topo-analysis/build-grid-topo/
+--- python build_grid_topo.py
+
+------ that tesselates populated area in grid cells
+------ filters cells based on a population threshold (e.g. cell with population less than some threshold are excluded)
+------ produces a grid network topology representing local (e.g. travel by foot based) connectivity over all grid cells
+
+--- copy pop_gridded.csv and gridded_households_adj_list.json from grid-topo-analysis/build-grid-topo/ to grid-topo-analysis/sims-grid-topo/input
+
+--- in grid-topo-analysis/sims-grid-topo/, run
+
+dtk run haiti_gridded_households_spatial_example_wo_habs.py --hpc
+
+------ note that the current example setup in haiti_gridded_households_spatial_example_wo_habs.py is for a Haiti topology
+------ may need to update geography and site parameters for Zambia grid cell setup 
+------ the lines that are relevant for migration haiti_gridded_households_spatial_example_wo_habs.py are  
+
+generate_migration = True, 
+
+------ and
+
+spatial_manager.set_graph_topo_type("small-world-grid")
+
+------ if you don't already have climate files, to generate climate files that are needed for the simulation you can have 
+
+generate_climate = True
+
+------ and uncomment the lines
+
+spatial_manager.set_climate_project_info("IDM-Hispaniola") # setting project name to IDM-Zambia
+spatial_manager.set_climate_start_year("2014") # set to whatever year is needed
+spatial_manager.set_climate_num_years("1") # set to whatever number is needed
+
+------ In general, the code in dtk-tools that handles migration is in dtk-tools-source-install-path/dtk/tools/migration/MigrationGenerator.py

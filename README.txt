@@ -3,8 +3,7 @@ This is a collection of loosely coupled scripts facilitating the generation of g
 
 The scripts are organized in example workflows provided in the documentation of each directory.
 
-The example workflows (e.g. see sims-grid-topo/README.txt) aim at enabling users run spatial malaria simulations on a grid topology
-of various configurations from scratch.
+The example workflows (e.g. see sims-grid-topo/README.txt) aim at enabling users run spatial malaria simulations on a grid topology of various configurations from scratch.
 
 
 The workflows enable 

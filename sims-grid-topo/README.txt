@@ -103,10 +103,6 @@ def configure_haiti_gridded_households(cb):
 
 --- save file
 
------- notice the configure site haiti_gridded_households matches the lower case of the geography Haiti_gridded_households defined above; similarly, SouthZambia_gridded_households matches the configure site southzambia_gridded_households
------- that's how we know to associate study sites with corresponding geographies
-
-
 
 --- in grid-topo-analysis/sims-grid-topo/, run
 

@@ -12,7 +12,8 @@ The workflows enable
 - filtering structures within the union of a set of geoJSON shape files and/or a bounding box
 - hierarchical clustering of grid cells according to cells' properties (population density estimate, altitude profile, distance from other cells)
 - enabling per-cell heterogeneous health seeking behavior based on cells connectivity and clustering properties
-- generation of EMOD-DTK simulation input files (e.g. climate, migration, population based load-balancing) and simulation commissioning to COMPS using dtk-tools, along with the relevant dtk-tools user-space configuration scripts and usage tips
+- generation of EMOD-DTK simulation input files (e.g. demographics, climate, migration, population based load-balancing, campaigns, etc.) based on the above grid operations
+- simulation commissioning to COMPS using dtk-tools, along with the relevant dtk-tools user-space configuration scripts and usage tips
 
 
 Example workflows assume 

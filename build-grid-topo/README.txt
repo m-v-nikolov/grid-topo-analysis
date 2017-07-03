@@ -3,6 +3,7 @@
 ---- overpass
 ---- geopy
 ---- geocoder
+---- descartes
 ---- sklearn
 ---- scipy
 ---- urllib
@@ -14,6 +15,12 @@
 
 1) python download_osm_structures.py
 2) python build_grid_topo.py
+
+
+--- basic grid topo based on households locations; grid cells/household locations filtered by geojson shapes (e.g. only include grid cells/households whose coordinates are within a set of shapefiles)
+
+1) python download_osm_structures.py
+2) python build_grid_topo_filter_by_shape.py
 
 
 - Example run generating grid topo along with a layer of hospitals (or other structures, e.g. schools, community health workers)

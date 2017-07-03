@@ -9,6 +9,7 @@ The example workflows (e.g. see sims-grid-topo/README.txt) aim at enabling users
 The workflows enable 
 - access to Open Street Maps building structures (e.g. households)
 - tesselation/aggregation of structures into a grid, along with creating relevant configurable migration networks
+- filtering structures within the union of a set of geoJSON shape files and/or a bounding box
 - hierarchical clustering of grid cells according to cells' properties (population density estimate, altitude profile, distance from other cells)
 - enabling per-cell heterogeneous health seeking behavior based on cells connectivity and clustering properties
 - generation of EMOD-DTK simulation input files (e.g. climate, migration, population based load-balancing) and simulation commissioning to COMPS using dtk-tools, along with the relevant dtk-tools user-space configuration scripts and usage tips
@@ -24,12 +25,14 @@ and storing simulation related input files (e.g. demographics, campaigns)
 ---- overpass
 ---- geopy
 ---- geocoder
+---- descartes
 ---- sklearn
 ---- scipy
 ---- urllib
 ---- requests
 ---- ete3
 ---- networkx
+
 - all of the above can be installed via pip 
 
 - Usage/install: clone this repo anywhere locally
